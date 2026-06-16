@@ -24,22 +24,49 @@ class Solution {
         
 
         //Better approach using sorting
+        // if(nums.length == 0) return 0;
+        // Arrays.sort(nums);
+        // int longest = 1;
+        // int count = 1;
+        // for(int i=1;i<nums.length;i++){
+        //     if(nums[i]== nums[i-1]){
+        //         continue;
+        //     }
+        //     else if(nums[i]==nums[i-1]+1){
+        //         count++;
+        //     }
+        //     else{
+        //         count = 1;
+        //     }
+        //     longest = Math.max(longest , count);
+        // }
+        // return longest;
+
+        //optimal approach
         if(nums.length == 0) return 0;
-        Arrays.sort(nums);
+        HashSet<Integer> st = new HashSet<>();
+        for(int i=0;i<nums.length;i++){
+            st.add(nums[i]);
+        }
+       
+      
         int longest = 1;
-        int count = 1;
-        for(int i=1;i<nums.length;i++){
-            if(nums[i]== nums[i-1]){
-                continue;
-            }
-            else if(nums[i]==nums[i-1]+1){
-                count++;
-            }
-            else{
-                count = 1;
-            }
-            longest = Math.max(longest , count);
+        
+
+        for(int num : st){
+        if(!st.contains(num-1)){
+        int current = num;
+          int count = 1;
+        
+        while(st.contains(current+1)){
+            count++;
+            current++;
+        }
+        
+        longest = Math.max(count , longest);
+             }
         }
         return longest;
+
     }
 }
