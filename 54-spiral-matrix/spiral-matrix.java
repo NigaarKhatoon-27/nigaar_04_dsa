@@ -1,36 +1,47 @@
 class Solution {
     public List<Integer> spiralOrder(int[][] matrix) {
-        ArrayList<Integer> ans = new ArrayList<>();
-        int n = matrix.length;
-        int m = matrix[0].length;
-        int top=0;
-        int bottom = n-1;
-        int left = 0;
-        int right = m-1;
 
-        while(top <= bottom && left <= right){
-            for(int i=left ;i<=right;i++){
-                ans.add(matrix[top][i]);
-                 }
-                 top++;
-                 for(int i =top;i<=bottom;i++){
-                    ans.add(matrix[i][right]);
-                 }
-                 right--;
-                 if(top<=bottom){
-                    for(int i=right;i>=left;i--){
-                        ans.add(matrix[bottom][i]);
-                    }
-                    bottom--;
-                 }
-                 if(left<=right){
-                    for(int i= bottom ;i>=top;i--){
-                        ans.add(matrix[i][left]);
-                    }
-                    left++;
-                 }
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        int firstRow = 0;
+        int firstCol = 0;
+        int lastRow = m - 1;
+        int lastCol = n - 1;
+
+        while (firstRow <= lastRow && firstCol <= lastCol) {
+
+            // Left -> Right
+            for (int i = firstCol; i <= lastCol; i++) {
+                ans.add(matrix[firstRow][i]);
+            }
+            firstRow++;
+
+            // Top -> Bottom
+            for (int i = firstRow; i <= lastRow; i++) {
+                ans.add(matrix[i][lastCol]);
+            }
+            lastCol--;
+
+            // Right -> Left
+            if (firstRow <= lastRow) {
+                for (int i = lastCol; i >= firstCol; i--) {
+                    ans.add(matrix[lastRow][i]);
+                }
+                lastRow--;
+            }
+
+            // Bottom -> Top
+            if (firstCol <= lastCol) {
+                for (int i = lastRow; i >= firstRow; i--) {
+                    ans.add(matrix[i][firstCol]);
+                }
+                firstCol++;
+            }
         }
+
         return ans;
-        
     }
 }
